@@ -15,7 +15,7 @@ def istrinum(num):
 
 import re
 
-with open("Files/words.txt") as file:
+with open("Files/p042_words.txt") as file:
 	total = 0
 	data = re.split(r"[,]", file.read())
 	for word in data:
