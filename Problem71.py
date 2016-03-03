@@ -19,8 +19,6 @@ def HCF(a, b):
 	if b % a == 0:
 		return 0
 
-frac = []
-
 max_a = 1
 max_b = 8
 
