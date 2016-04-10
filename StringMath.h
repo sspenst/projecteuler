@@ -2,7 +2,7 @@
 
 #define MAXLENGTH 3100
 
-//Adds num1 to num2 and stores the answer in temp. Replaces num1 with num2 (doesn't when that line is commented out) and num2 with temp and resets temp.
+// Adds num1 to num2 and stores the answer in temp. Replaces num1 with num2 (doesn't when that line is commented out) and num2 with temp and resets temp.
 void add(char num2[], char temp[], char num1[]) {
 	int i = 0, lim = 0;
 
