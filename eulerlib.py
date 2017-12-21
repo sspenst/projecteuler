@@ -1,3 +1,49 @@
+num_roman_map = [
+    (1000, "M"),
+    (900, "CM"),
+    (500, "D"),
+    (400, "CD"),
+    (100, "C"),
+    (90, "XC"),
+    (50, "L"),
+    (40, "XL"),
+    (10, "X"),
+    (9, "IX"),
+    (5, "V"),
+    (4, "IV"),
+    (1, "I")
+]
+
+def num_to_roman(num):
+    roman = ""
+    i = 0
+
+    while i < len(num_roman_map):
+        n, r = num_roman_map[i]
+
+        if num >= n:
+            num -= n
+            roman += r
+        else:
+            i += 1
+
+    return roman
+
+def roman_to_num(roman):
+    num = 0
+    i = 0
+
+    while i < len(num_roman_map):
+        n, r = num_roman_map[i]
+
+        if roman.startswith(r):
+            roman = roman[len(r):]
+            num += n
+        else:
+            i += 1
+
+    return num
+
 def generate_primes(n):
     """ Input n>=6, Returns a list of primes, 2 <= p < n """
     n, correction = n-n%6+6, 2-(n%6>1)
