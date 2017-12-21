@@ -6,7 +6,7 @@
 #define SIZE 100
 
 int main() {
-	FILE* inFile = fopen("Files\\triangle.txt", "r");
+	FILE* inFile = fopen("files\\triangle.txt", "r");
 
 	if (inFile == NULL) {
 		printf("Error opening file.\n");

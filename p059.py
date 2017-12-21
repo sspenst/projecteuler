@@ -1,7 +1,7 @@
 import sys
 import re
 
-with open("Files/p059_cipher.txt") as file:
+with open("files/p059_cipher.txt") as file:
 	data = re.split(r"[,]", file.read())
 	for a in xrange(97, 123):
 		for b in xrange(97, 123):

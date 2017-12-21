@@ -7,7 +7,7 @@ int rank(char**);
 int compare(char**, char**, int);
 
 int main() {
-	FILE* inFile = fopen("Files\\p054_poker.txt", "r");
+	FILE* inFile = fopen("files\\p054_poker.txt", "r");
 
 	if (inFile == NULL) {
 		printf("Error opening file.\n");

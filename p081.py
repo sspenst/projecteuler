@@ -1,6 +1,6 @@
 import re
 
-with open("Files/p081_matrix.txt") as file:
+with open("files/p081_matrix.txt") as file:
 	data = re.split(r"[\n]", file.read())
 	for i in xrange(80):
 		data[i] = re.split(r"[,]", data[i])

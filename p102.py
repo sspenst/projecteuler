@@ -38,7 +38,7 @@ def hasorigin(nums, index):
 			return 0
 	return 1
 
-with open("Files/p102_triangles.txt") as file:
+with open("files/p102_triangles.txt") as file:
 	data = re.split(r"[\n]", file.read())
 	total = 0
 	for i in xrange(1000):

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 int main() {
-	FILE* inFile = fopen("Files\\names.txt", "r");
+	FILE* inFile = fopen("files\\names.txt", "r");
 
 	if (inFile == NULL) {
 		printf("Error opening file.\n");

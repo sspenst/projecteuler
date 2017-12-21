@@ -1,7 +1,7 @@
 import re
 import math
 
-with open("Files/p099_base_exp.txt") as file:
+with open("files/p099_base_exp.txt") as file:
 	data = re.split(r"[\n]", file.read())
 	max_b = 0
 	max_e = 0
