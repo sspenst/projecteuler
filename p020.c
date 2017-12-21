@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "StringMath.h"
+#include "stringMath.h"
 
 int main() {
 	char one[MAXLENGTH], two[MAXLENGTH];

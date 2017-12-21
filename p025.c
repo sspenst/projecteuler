@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "StringMath.h"
+#include "stringMath.h"
 
 int main() {
 	char num1[MAXLENGTH], num2[MAXLENGTH], temp[MAXLENGTH];
