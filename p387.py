@@ -21,11 +21,11 @@ for _ in range(2, digits):
             if num % s == 0:
                 new_rth_nums.append(num)
                 # check if strong harshad number
-                if eulerlib.is_prime2(num // s):
+                if eulerlib.is_probable_prime(num // s):
                     # find associated strong right truncatble harshad primes
                     for j in range(10):
                         p = num * 10 + j
-                        if eulerlib.is_prime2(p):
+                        if eulerlib.is_probable_prime(p):
                             total += p
 
     rth_nums = new_rth_nums

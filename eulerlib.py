@@ -1,3 +1,5 @@
+import random
+
 num_roman_map = [
     (1000, "M"),
     (900, "CM"),
@@ -115,3 +117,96 @@ def is_prime2(n):
         d += 4
 
     return False
+
+_known_primes = [2, 3]
+
+def is_prime3(n, _precision_for_huge_n=16):
+    """
+    Gives correct values for n less than 341550071728321.
+
+    Source:
+    https://rosettacode.org/wiki/Miller%E2%80%93Rabin_primality_test#Python
+    """
+    def _try_composite(a, d, n, s):
+        if pow(a, d, n) == 1:
+            return False
+        for i in range(s):
+            if pow(a, 2**i * d, n) == n-1:
+                return False
+        return True # n  is definitely composite
+
+    global _known_primes
+    if len(_known_primes) == 2:
+        _known_primes += [x for x in range(5, 1000, 2) if is_prime(x)]
+    if n in _known_primes or n in (0, 1):
+        return True
+    if any((n % p) == 0 for p in _known_primes):
+        return False
+    d, s = n - 1, 0
+    while not d % 2:
+        d, s = d >> 1, s + 1
+    # Returns exact according to http://primes.utm.edu/prove/prove2_3.html
+    if n < 1373653:
+        return not any(_try_composite(a, d, n, s) for a in (2, 3))
+    if n < 25326001:
+        return not any(_try_composite(a, d, n, s) for a in (2, 3, 5))
+    if n < 118670087467:
+        if n == 3215031751:
+            return False
+        return not any(_try_composite(a, d, n, s) for a in (2, 3, 5, 7))
+    if n < 2152302898747:
+        return not any(_try_composite(a, d, n, s) for a in (2, 3, 5, 7, 11))
+    if n < 3474749660383:
+        return not any(_try_composite(a, d, n, s) for a in (2, 3, 5, 7, 11, 13))
+    if n < 341550071728321:
+        return not any(_try_composite(a, d, n, s) for a in (2, 3, 5, 7, 11, 13, 17))
+    # otherwise
+    return not any(_try_composite(a, d, n, s)
+                   for a in _known_primes[:_precision_for_huge_n])
+ 
+def is_probable_prime(n):
+    """
+    Miller-Rabin primality test.
+ 
+    A return value of False means n is certainly not prime. A return value of
+    True means n is very likely a prime.
+    
+    Source:
+    https://rosettacode.org/wiki/Miller%E2%80%93Rabin_primality_test#Python
+    """
+    assert n >= 2
+    # special case 2
+    if n == 2:
+        return True
+    # ensure n is odd
+    if n % 2 == 0:
+        return False
+    # write n-1 as 2**s * d
+    # repeatedly try to divide n-1 by 2
+    s = 0
+    d = n-1
+    while True:
+        quotient, remainder = divmod(d, 2)
+        if remainder == 1:
+            break
+        s += 1
+        d = quotient
+    assert(2**s * d == n-1)
+ 
+    # test the base a to see whether it is a witness for the compositeness of n
+    def try_composite(a):
+        if pow(a, d, n) == 1:
+            return False
+        for i in range(s):
+            if pow(a, 2**i * d, n) == n-1:
+                return False
+        return True # n is definitely composite
+ 
+    _mrpt_num_trials = 5 # number of bases to test
+
+    for i in range(_mrpt_num_trials):
+        a = random.randrange(2, n)
+        if try_composite(a):
+            return False
+ 
+    return True # no base tested showed n as composite
