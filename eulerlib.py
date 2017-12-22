@@ -47,16 +47,16 @@ def roman_to_num(roman):
 def generate_primes(n):
     """ Input n>=6, Returns a list of primes, 2 <= p < n """
     n, correction = n-n%6+6, 2-(n%6>1)
-    sieve = [True] * int(n/3)
-    for i in range(1,int(n**0.5)/3+1):
+    sieve = [True] * (n//3)
+    for i in range(1,int(n**0.5)//3+1):
       if sieve[i]:
         k=3*i+1|1
-        sieve[      k*k/3      ::2*k] = [False] * ((n/6-k*k/6-1)/k+1)
-        sieve[k*(k-2*(i&1)+4)/3::2*k] = [False] * ((n/6-k*(k-2*(i&1)+4)/6-1)/k+1)
-    return [2,3] + [3*i+1|1 for i in range(1,n/3-correction) if sieve[i]]
+        sieve[      k*k//3      ::2*k] = [False] * ((n//6-k*k//6-1)//k+1)
+        sieve[k*(k-2*(i&1)+4)//3::2*k] = [False] * ((n//6-k*(k-2*(i&1)+4)//6-1)//k+1)
+    return [2,3] + [3*i+1|1 for i in range(1,n//3-correction) if sieve[i]]
 
 def prime_sieve(n):
-    # Sieve of Eratosthenes
+    """ Sieve of Eratosthenes """
     result = [True] * (n + 1)
     result[0] = result[1] = False
     for i in range(int(n**0.5 + 1)):
@@ -64,3 +64,54 @@ def prime_sieve(n):
             for j in range(i * i, len(result), i):
                 result[j] = False
     return result
+
+def is_prime(n):
+    """ Implemented based on the GMP library source code """
+    if n < 3 or n & 1 == 0:
+        return n == 2
+
+    d = 3
+    r = 1
+
+    while r != 0:
+        q = n // d
+        r = n - q * d
+        if q < d:
+            return True
+        d += 2
+
+    return False
+
+def is_prime2(n):
+    """ Implemented based on the GMP library source code """
+    if n < 32:
+        return (0xa08a28ac >> n) & 1
+    if n & 1 == 0:
+        return False
+
+    if n % 3 == 0:
+        return False
+    if n % 5 == 0:
+        return False
+    if n % 7 == 0:
+        return False
+
+    d = 11
+
+    while True:
+        q = n // d
+        r = n - q * d
+        if q < d:
+            return True
+        if r == 0:
+            break
+        d += 2
+        q = n // d
+        r = n - q * d
+        if q < d:
+            return True
+        if r == 0:
+            break
+        d += 4
+
+    return False
