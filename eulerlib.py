@@ -1,6 +1,7 @@
+import functools
 import random
 
-num_roman_map = [
+_num_roman_map = [
     (1000, "M"),
     (900, "CM"),
     (500, "D"),
@@ -20,8 +21,8 @@ def num_to_roman(num):
     roman = ""
     i = 0
 
-    while i < len(num_roman_map):
-        n, r = num_roman_map[i]
+    while i < len(_num_roman_map):
+        n, r = _num_roman_map[i]
 
         if num >= n:
             num -= n
@@ -35,8 +36,8 @@ def roman_to_num(roman):
     num = 0
     i = 0
 
-    while i < len(num_roman_map):
-        n, r = num_roman_map[i]
+    while i < len(_num_roman_map):
+        n, r = _num_roman_map[i]
 
         if roman.startswith(r):
             roman = roman[len(r):]
@@ -210,3 +211,7 @@ def is_probable_prime(n):
             return False
  
     return True # no base tested showed n as composite
+
+def factors(n):    
+    return set(functools.reduce(list.__add__,
+                ([i, n//i] for i in range(1, int(n**0.5) + 1) if n % i == 0)))
